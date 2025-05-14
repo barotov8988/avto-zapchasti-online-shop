@@ -63,11 +63,13 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Custom colors for our auto parts store
-				'auto-blue': '#0A3161',
-				'auto-red': '#E63946',
-				'auto-gray': '#404E5C',
-				'auto-light': '#F5F5F5',
+				// Обновленная цветовая схема для автозапчастей
+				'auto-blue': '#1E3A8A',
+				'auto-red': '#DC2626',
+				'auto-gray': '#374151',
+				'auto-light': '#F9FAFB',
+				'auto-dark': '#111827',
+				'auto-accent': '#3B82F6',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -106,6 +108,13 @@ export default {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.5s ease-out forwards'
+			},
+			fontFamily: {
+				sans: ['Inter', 'sans-serif'],
+				heading: ['Montserrat', 'sans-serif'],
+			},
+			boxShadow: {
+				'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
 			}
 		}
 	},

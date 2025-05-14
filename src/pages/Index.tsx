@@ -9,12 +9,13 @@ import CallToAction from "@/components/CallToAction";
 import Footer from "@/components/Footer";
 import MiniCart from "@/components/MiniCart";
 import { CartContext } from "@/App";
+import { Toaster } from "@/components/ui/sonner";
 
 const Index = () => {
   const { items, removeItem, updateQuantity, isCartOpen, toggleCart } = useContext(CartContext);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-auto-light">
       <Navbar />
       <main className="flex-grow">
         <HeroBanner />
@@ -33,6 +34,7 @@ const Index = () => {
           onUpdateQuantity={updateQuantity}
         />
       )}
+      <Toaster />
     </div>
   );
 };
