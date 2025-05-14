@@ -1,4 +1,3 @@
-
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -10,6 +9,7 @@ import { Car, Wrench, Settings } from "lucide-react";
 import { CartContext } from "@/App";
 import { useContext } from "react";
 import MiniCart from "@/components/MiniCart";
+import MechanicProfile from "@/components/MechanicProfile";
 
 // Sample service data
 const services = [
@@ -95,6 +95,117 @@ const workProcess = [
   }
 ];
 
+// Mechanics data
+const mechanics = [
+  {
+    id: 1,
+    name: "Иван Петров",
+    position: "Старший автомеханик",
+    photo: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&q=80&w=400",
+    experience: 12,
+    specializations: ["Двигатели", "Диагностика", "Электроника"],
+    carBrands: ["BMW", "Mercedes-Benz", "Toyota", "Audi", "Volkswagen", "Lexus"],
+    skills: [
+      {name: "Ремонт двигателя", level: 5},
+      {name: "Компьютерная диагностика", level: 5},
+      {name: "Электрика и электроника", level: 4},
+      {name: "Ремонт трансмиссии", level: 3}
+    ],
+    reviews: [
+      {
+        id: 1,
+        author: "Алексей М.",
+        text: "Отличный специалист! Быстро нашел причину стука в двигателе, все починил за день.",
+        rating: 5,
+        date: "15.04.2025"
+      },
+      {
+        id: 2,
+        author: "Марина К.",
+        text: "Уже второй раз обращаюсь к Ивану. Всегда детально объясняет проблему и варианты решения.",
+        rating: 5,
+        date: "02.03.2025"
+      },
+      {
+        id: 3,
+        author: "Дмитрий С.",
+        text: "Профессионал своего дела. Решил проблему с электроникой, с которой другие сервисы не справились.",
+        rating: 5,
+        date: "18.02.2025"
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: "Сергей Иванов",
+    position: "Специалист по трансмиссии",
+    photo: "https://images.unsplash.com/photo-1613214143545-e0e4664744ef?auto=format&fit=crop&q=80&w=400",
+    experience: 8,
+    specializations: ["АКПП", "МКПП", "Вариаторы"],
+    carBrands: ["Honda", "Nissan", "Mitsubishi", "Toyota", "Hyundai", "Kia"],
+    skills: [
+      {name: "Ремонт АКПП", level: 5},
+      {name: "Ремонт МКПП", level: 5},
+      {name: "Ремонт вариаторов", level: 4},
+      {name: "Диагностика трансмиссии", level: 5}
+    ],
+    reviews: [
+      {
+        id: 1,
+        author: "Виктор Л.",
+        text: "Сергей отлично разбирается в коробках передач. Быстро нашел проблему и устранил её.",
+        rating: 5,
+        date: "10.05.2025"
+      },
+      {
+        id: 2,
+        author: "Ольга П.",
+        text: "Очень довольна работой. Коробка стала работать как новая.",
+        rating: 4,
+        date: "23.04.2025"
+      }
+    ]
+  },
+  {
+    id: 3,
+    name: "Николай Сидоров",
+    position: "Мастер по ходовой части",
+    photo: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&q=80&w=400",
+    experience: 10,
+    specializations: ["Подвеска", "Тормозная система", "Рулевое управление"],
+    carBrands: ["BMW", "Mercedes-Benz", "Audi", "Volkswagen", "Skoda", "Ford", "Opel"],
+    skills: [
+      {name: "Диагностика подвески", level: 5},
+      {name: "Ремонт ходовой части", level: 5},
+      {name: "Регулировка развал-схождения", level: 4},
+      {name: "Ремонт тормозной системы", level: 5}
+    ],
+    reviews: [
+      {
+        id: 1,
+        author: "Андрей К.",
+        text: "Николай отлично знает своё дело. Все стуки и скрипы исчезли после ремонта.",
+        rating: 5,
+        date: "05.05.2025"
+      },
+      {
+        id: 2,
+        author: "Игорь В.",
+        text: "Грамотно провел диагностику, объяснил все проблемы и предложил оптимальное решение.",
+        rating: 5,
+        date: "12.04.2025"
+      },
+      {
+        id: 3,
+        author: "Наталья М.",
+        text: "Хороший специалист, машина теперь едет ровно, без посторонних звуков.",
+        rating: 4,
+        date: "28.03.2025"
+      }
+    ]
+  }
+];
+
 const Services = () => {
   const { items, removeItem, updateQuantity, isCartOpen, toggleCart } = useContext(CartContext);
   
@@ -118,6 +229,18 @@ const Services = () => {
           </div>
         </div>
       </div>
+      
+      {/* Our team section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold mb-4">Наша команда профессионалов</h2>
+          <p className="text-xl text-gray-600 mb-10">Высококвалифицированные специалисты с многолетним опытом работы</p>
+          
+          {mechanics.map(mechanic => (
+            <MechanicProfile key={mechanic.id} mechanic={mechanic} />
+          ))}
+        </div>
+      </section>
       
       {/* Services list */}
       <section className="py-16">
