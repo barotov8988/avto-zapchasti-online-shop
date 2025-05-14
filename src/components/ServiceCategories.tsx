@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Car, Wrench, Settings, Tool } from "lucide-react";
+import { Car, Wrench, Settings, FileSpanners } from "lucide-react";
 
 interface ServiceCategory {
   id: number;
@@ -33,7 +33,7 @@ const serviceCategories: ServiceCategory[] = [
     id: 4,
     title: "Плановое ТО",
     description: "Регулярное техническое обслуживание по регламенту с использованием качественных материалов.",
-    icon: <Tool className="text-auto-blue h-8 w-8" />
+    icon: <FileSpanners className="text-auto-blue h-8 w-8" />
   }
 ];
 
