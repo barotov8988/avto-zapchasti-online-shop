@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import { toast } from "@/hooks/use-toast";
 
 // Create a cart context
 import { createContext } from "react";
@@ -25,6 +26,8 @@ interface CartContextType {
   removeItem: (id: number) => void;
   updateQuantity: (id: number, quantity: number) => void;
   clearCart: () => void;
+  isCartOpen: boolean;
+  toggleCart: () => void;
 }
 
 export const CartContext = createContext<CartContextType>({
@@ -33,12 +36,15 @@ export const CartContext = createContext<CartContextType>({
   removeItem: () => {},
   updateQuantity: () => {},
   clearCart: () => {},
+  isCartOpen: false,
+  toggleCart: () => {},
 });
 
 const queryClient = new QueryClient();
 
 const App = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const addItem = (newItem: Omit<CartItem, "quantity"> & { quantity?: number }) => {
     setCartItems((prevItems) => {
@@ -50,6 +56,10 @@ const App = () => {
             : item
         );
       } else {
+        toast({
+          title: "Товар добавлен в корзину",
+          description: newItem.name,
+        });
         return [...prevItems, { ...newItem, quantity: newItem.quantity || 1 }];
       }
     });
@@ -71,10 +81,22 @@ const App = () => {
     setCartItems([]);
   };
 
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <CartContext.Provider
-        value={{ items: cartItems, addItem, removeItem, updateQuantity, clearCart }}
+        value={{ 
+          items: cartItems, 
+          addItem, 
+          removeItem, 
+          updateQuantity, 
+          clearCart, 
+          isCartOpen,
+          toggleCart
+        }}
       >
         <TooltipProvider>
           <Toaster />

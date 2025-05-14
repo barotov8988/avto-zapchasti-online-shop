@@ -1,5 +1,5 @@
 
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Navbar from "@/components/Navbar";
 import HeroBanner from "@/components/HeroBanner";
 import FeaturedProducts from "@/components/FeaturedProducts";
@@ -11,14 +11,11 @@ import MiniCart from "@/components/MiniCart";
 import { CartContext } from "@/App";
 
 const Index = () => {
-  const { items, removeItem, updateQuantity } = useContext(CartContext);
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { items, removeItem, updateQuantity, isCartOpen, toggleCart } = useContext(CartContext);
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar 
-        cartItemCount={items.reduce((sum, item) => sum + item.quantity, 0)} 
-      />
+      <Navbar />
       <main className="flex-grow">
         <HeroBanner />
         <FeaturedProducts />
@@ -31,7 +28,7 @@ const Index = () => {
       {isCartOpen && (
         <MiniCart 
           items={items} 
-          onClose={() => setIsCartOpen(false)} 
+          onClose={toggleCart} 
           onRemoveItem={removeItem}
           onUpdateQuantity={updateQuantity}
         />

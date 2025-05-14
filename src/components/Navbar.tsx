@@ -1,9 +1,10 @@
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { CartContext } from "@/App";
 
 interface NavbarProps {
   cartItemCount?: number;
@@ -11,6 +12,11 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { items } = useContext(CartContext);
+  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+
+  // Получаем функцию для открытия корзины из контекста
+  const { toggleCart } = useContext(CartContext);
 
   return (
     <header className="bg-auto-blue text-white sticky top-0 z-50 shadow-md">
@@ -49,12 +55,16 @@ const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
 
         {/* Shopping cart button */}
         <div className="hidden md:flex">
-          <Button variant="outline" className="text-white border-white hover:bg-auto-red hover:text-white">
+          <Button 
+            variant="outline" 
+            className="text-white border-white hover:bg-auto-red hover:text-white"
+            onClick={() => toggleCart()}
+          >
             <ShoppingCart className="mr-2 h-4 w-4" />
             Корзина
-            {cartItemCount > 0 && (
+            {totalItems > 0 && (
               <Badge variant="destructive" className="ml-2 bg-auto-red">
-                {cartItemCount}
+                {totalItems}
               </Badge>
             )}
           </Button>
@@ -103,13 +113,16 @@ const Navbar: React.FC<NavbarProps> = ({ cartItemCount = 0 }) => {
             <Button
               variant="outline"
               className="text-white border-white hover:bg-auto-red hover:text-white justify-start"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => {
+                toggleCart();
+                setIsMenuOpen(false);
+              }}
             >
               <ShoppingCart className="mr-2 h-4 w-4" />
               Корзина
-              {cartItemCount > 0 && (
+              {totalItems > 0 && (
                 <Badge variant="destructive" className="ml-2 bg-auto-red">
-                  {cartItemCount}
+                  {totalItems}
                 </Badge>
               )}
             </Button>
